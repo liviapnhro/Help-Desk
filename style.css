@@ -12,46 +12,43 @@
     --foco: #2F6F5E;
 }
 
-*{
+* {
     box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  font-family:'Inter' system-ui, sans-serif;
-  background: var (--fundo);
-  color: var(--tinta);
+    margin: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--fundo);
+    color: var(--tinta);
 }
 
-h1 .topo-marca{   
-
+h1, .topo-marca {
     font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
 }
 
-/*Topo*/
-
+/* Topo */
 .topo {
-    background:var(--superficie);
+    background: var(--superficie);
     border-bottom: 1px solid var(--linha);
 }
 
-.topo-conteudo{
+.topo-conteudo {
     max-width: 720px;
     margin: 0 auto;
     padding: 18px 24px;
-    display:  flex;
+    display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 .topo-marca {
-
     font-size: 18px;
     font-weight: 700;
     letter-spacing: -0.01em;
 }
 
-.topo.nav {
+.topo-nav {
     display: flex;
     gap: 24px;
 }
@@ -61,20 +58,20 @@ h1 .topo-marca{
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
-    padding-bottom: 2px solid transparent;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
 }
 
-.topo-nav a:hover {
+.topo-nav a:hover, .topo-nav a.ativo {
     color: var(--tinta);
     border-bottom-color: var(--sinal);
 }
 
-/*Conteudo principal*/
-
+/* Conteudo principal */
 .conteudo {
-  max-width: 720px;
-  margin:0 auto;
-  padding: 401px 24px 80px;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
 }
 
 .cartao {
@@ -82,37 +79,30 @@ h1 .topo-marca{
     border: 1px solid var(--linha);
     border-radius: 10px;
     padding: 40px;
+    margin-bottom: 24px;
 }
 
-h1{
-
-font-size: 26px;
-font-weight: 600px;
-margin: 0 0 0px;
-letter-spacing: -0.01em;
+h1 {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
 }
 
 .subtitulo {
-    margin:  0 0 32px;
+    margin: 0 0 32px;
     color: var(--tinta-suave);
     font-size: 15px;
     line-height: 1.5;
     max-width: 50ch;
 }
 
-/*formulario*/
-
+/* Formulario */
 .campo {
-   margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
-.campo-duplo{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap:16px;
-}
-
-label{
+label {
     display: block;
     font-size: 13px;
     font-weight: 600;
@@ -120,38 +110,35 @@ label{
     margin-bottom: 6px;
 }
 
-    input,
-    select,
-    textarea{
-        width: 100%;
-        padding: 11px 12px;
-        border: 1px solid var(--linha);
-        border-radius: 7px;
-        font-size: 14px;
-        font-family: inherit;
-        color: var(--tinta);
-        background: var(--superficie);
-    }
-input:focus,
-select:focus,
-textarea:focus{
+input, select, textarea {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid var(--linha);
+    border-radius: 7px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--tinta);
+    background: var(--superficie);
+}
+
+input:focus, select:focus, textarea:focus {
     outline: none;
     border-color: var(--foco);
-    box-shadow:0 0 0 3px rgba(red, green, blue, alpha);
+    box-shadow: 0 0 0 3px rgba(47, 111, 94, 0.15);
 }
 
-textarea{
-    resize:vertical;
+textarea {
+    resize: vertical;
 }
 
-/*botao*/
-
-.botao-principal{
+/* Botao */
+.botao-principal {
     width: 100%;
     padding: 13px;
     background: var(--tinta);
     color: var(--superficie);
     border: none;
+    border-radius: 7px;
     font-size: 15px;
     font-weight: 600;
     font-family: inherit;
@@ -159,35 +146,100 @@ textarea{
     margin-top: 8px;
 }
 
-.botao-principal:hover{
+.botao-principal:hover {
     background: #2a3644;
 }
 
-/*mensagem de status*/
-
-.mensagem-status{
+/* Mensagem de status */
+.mensagem-status {
     min-height: 20px;
     margin: 16px 0 0;
     font-size: 14px;
     font-weight: 500;
 }
 
-.mensagem-status.sucesso{
-    color:var(--sinal)
+.mensagem-status.sucesso {
+    color: var(--sinal);
 }
 
-.mensagem-status-erro{
+.mensagem-status.erro {
     color: var(--alerta);
 }
 
-/*responsivo*/
+/* Cartoes de Chamados */
+.cartao-chamado {
+    background: var(--superficie);
+    border: 1px solid var(--linha);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 16px;
+}
 
-@media (max-width: 560px){
-    .cartao{
+.cartao-chamado-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.numero-chamado {
+    font-weight: 700;
+    color: var(--tinta-suave);
+    font-size: 14px;
+}
+
+.badge-prioridade {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: #E2E8F0;
+}
+
+.badge-prioridade.alta { background: #FEE2E2; color: #991B1B; }
+.badge-prioridade.média { background: #FEF3C7; color: #92400E; }
+.badge-prioridade.baixa { background: #ECFDF5; color: #065F46; }
+
+.titulo-chamado {
+    font-size: 18px;
+    margin: 0 0 8px;
+}
+
+.descricao-chamado {
+    font-size: 14px;
+    color: var(--tinta-suave);
+    margin: 0 0 16px;
+    line-height: 1.5;
+}
+
+.detalhes-chamado {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--tinta-suave);
+    margin-bottom: 16px;
+    border-top: 1px solid var(--linha);
+    padding-top: 12px;
+}
+
+.rodape-chamado {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    border-top: 1px solid var(--linha);
+    padding-top: 12px;
+}
+
+.select-status {
+    width: auto;
+    padding: 6px 12px;
+}
+
+/* Responsivo */
+@media (max-width: 560px) {
+    .cartao {
         padding: 24px;
-    }
-    .campo-duplo{
-        grid-template-columns: 1fr;
-        gap: 0;
     }
 }

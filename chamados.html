@@ -1,64 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Help desk escolar</title>
-    <link rel="stylesheet" href="stylecss" />
+    <title>Help Desk Escolar - Ver Chamados</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+    <header class="topo">
+        <div class="topo-conteudo">
+            <span class="topo-marca">Help Desk Escolar</span>
+            <nav class="topo-nav">
+                <a href="index.html">Abrir chamado</a>
+                <a href="chamados.html" class="ativo">Ver chamados</a>
+            </nav>
+        </div>
+    </header>
 
-    <header class="topo"></header>
-    <div class="topo conteudo">
+    <main class="conteudo">
+        <div class="cabecalho-lista">
+            <h1>Chamados registrados</h1>
+            <p class="subtitulo">Acompanhe, filtre e atualize o status dos chamados abertos pela escola.</p>
 
-        <span class="topo-marca">Help desk Escolar</span>
-        <nav class="topo-nav">
-            <a href="index.html">Abrir chamado</a>
-            <a href="chamados.html" class="ativo">Ver chamado</a>
-
-
-        </nav>
-
-    </div>
-    <header>
-        <main class=" conteudo conteudo-larga"> <div class="cabecalho-lista">
-
-            <h1>Chamadas registradas</h1>
-            <p class="subtitulo">Acompanhe, filtre e atualize status dos chamados abertos pela escola.</p>
-
-            <div class="campo campo-filtrado">
+            <div class="campo">
                 <label for="filtro-status">Filtrar por status</label>
-                <select id="filtro por status">
-
+                <select id="filtro-status">
                     <option value="todos">Todos</option>
                     <option value="aberto">Aberto</option>
-                    <option value="em andadmento">Em Andamento</option>
+                    <option value="em andamento">Em Andamento</option>
                     <option value="resolvido">Resolvido</option>
-
                 </select>
             </div>
-            </div>
+        </div>
 
-            </div>
+        <div id="lista-chamados" class="lista-chamados"></div>
 
-            <div id="lista chamados" class="lista chamados">
+        <p id="mensagem-vazia" class="mensagem-vazia" hidden></p>
+    </main>
 
-            </div>
-
-
-            <p id="mensagem-vazia" class="mensagem-vazia" hidden>
-              
-
-            </p>
-
-        </main>
-
-        <scrip scr="storaje.js"></scrip>
-        <scrip scr="chamados.js"></scrip>
-
-    </header>
+    <script src="storage.js"></script>
+    <script src="chamados.js"></script>
 </body>
-
 </html>

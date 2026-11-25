@@ -1,10 +1,6 @@
-/*
-* chamados.js
-* camada de interface - tela de listagem (chamados.html)
-*
-* responsável por exibir os chamados; aplicar filtro por status
-* e permitir a alteração de status de cada chamado.
-*/
+/**
+ * chamados.js - Camada de interface (chamados.html)
+ */
 
 const containerLista = document.getElementById("lista-chamados");
 const mensagemVazia = document.getElementById("mensagem-vazia");
@@ -12,15 +8,9 @@ const filtroStatus = document.getElementById("filtro-status");
 
 const STATUS_DISPONIVEIS = ["Aberto", "Em andamento", "Resolvido"];
 
-// Renderiza a lista assim que a página carrega
 document.addEventListener("DOMContentLoaded", renderizarLista);
-
-// Sempre que o filtro mudar, renderiza a lista de novo
 filtroStatus.addEventListener("change", renderizarLista);
 
-/**
- * Busca chamados (já filtrados) e desenha os cartões na tela.
- */
 function renderizarLista() {
     const statusSelecionado = filtroStatus.value;
     const chamados = filtrarPorStatus(statusSelecionado);
@@ -29,11 +19,11 @@ function renderizarLista() {
 
     if (chamados.length === 0) {
         mensagemVazia.hidden = false;
+        mensagemVazia.textContent = "Nenhum chamado encontrado.";
         return;
     }
     mensagemVazia.hidden = true;
 
-    // Mostra os chamados mais recentes primeiro
     const chamadosOrdenados = [...chamados].reverse();
 
     chamadosOrdenados.forEach((chamado) => {
@@ -41,11 +31,6 @@ function renderizarLista() {
     });
 }
 
-/**
- * Cria o elemento HTML (cartão) que representa um chamado.
- * @param {Object} chamado
- * @returns {HTMLElement}
- */
 function criarCartaoChamado(chamado) {
     const cartao = document.createElement("article");
     cartao.className = "cartao-chamado";
@@ -68,39 +53,42 @@ function criarCartaoChamado(chamado) {
             <span><strong>Aberto em:</strong> ${dataFormatada}</span>
         </div>
     
-    <div class="rodape-chamado">
-     label class="rotulo-status" for="status-$(chamado.id)">status</label>
-     <select class="select-status" id="status-$(chamado.id)" data-id"$(chamado.id)">
-     ${STATUS_DISPONIVEIS.map(
-        (status) =>
-            ` <option value="${status}" ${status ===
-                chamado.status ? "selected" : ""}>${status}</option>`
-    ).join("")} 
-    </select>
-        </div>`
-        ;
+        <div class="rodape-chamado">
+            <label class="rotulo-status" for="status-${chamado.id}">Status:</label>
+            <select class="select-status" id="status-${chamado.id}" data-id="${chamado.id}">
+                ${STATUS_DISPONIVEIS.map(
+                    (status) => `<option value="${status}" ${status.toLowerCase() === chamado.status.toLowerCase() ? "selected" : ""}>${status}</option>`
+                ).join("")}
+            </select>
+        </div>
+    `;
 
-    `
-  const seletorStatus=cartao.querySelector(".select-status");
-  seletorStatus.addEventListener ("change", aoMudarStatus);
+    const seletorStatus = cartao.querySelector(".select-status");
+    seletorStatus.addEventListener("change", aoMudarStatus);
 
-  return cartao;
-  `
+    return cartao;
 }
-
-/**
- * Chamado quando o usuario troca o status pelo <select> do cartao.
- * @param {Event} evento
- */
 
 function aoMudarStatus(evento) {
     const id = Number(evento.target.dataset.id);
-    const novoStatus = evento.target.valaue;
+    const novoStatus = evento.target.value;
 
-    const sucesso = atualizacaoStatus(id, novoStatus);
+    const sucesso = atualizarStatus(id, novoStatus);
 
     if (!sucesso) {
-        alert("nao foi possivel atualizar o status desse chamado");
+        alert("Não foi possível atualizar o status desse chamado.");
         return;
     }
+    renderizarLista();
+}
+
+function formatarData(dataIso) {
+    if (!dataIso) return "--/--/---- --:--";
+    const data = new Date(dataIso);
+    const dia = String(data.getDate()).padStart(2, "0");
+    const mes = String(data.getMonth() + 1).padStart(2, "0");
+    const ano = data.getFullYear();
+    const horas = String(data.getHours()).padStart(2, "0");
+    const minutos = String(data.getMinutes()).padStart(2, "0");
+    return `${dia}/${mes}/${ano} ${horas}:${minutos}`;
 }
