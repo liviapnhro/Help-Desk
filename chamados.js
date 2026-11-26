@@ -1,6 +1,3 @@
-/**
- * chamados.js - Camada de interface (chamados.html)
- */
 
 const containerLista = document.getElementById("lista-chamados");
 const mensagemVazia = document.getElementById("mensagem-vazia");
@@ -52,19 +49,27 @@ function criarCartaoChamado(chamado) {
             <span><strong>Setor:</strong> ${chamado.setor}</span>
             <span><strong>Aberto em:</strong> ${dataFormatada}</span>
         </div>
-    
-        <div class="rodape-chamado">
-            <label class="rotulo-status" for="status-${chamado.id}">Status:</label>
-            <select class="select-status" id="status-${chamado.id}" data-id="${chamado.id}">
-                ${STATUS_DISPONIVEIS.map(
-                    (status) => `<option value="${status}" ${status.toLowerCase() === chamado.status.toLowerCase() ? "selected" : ""}>${status}</option>`
-                ).join("")}
-            </select>
+
+        <div class="rodape-chamado" style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #dde2d8; padding-top: 12px; margin-top: 12px;">
+            <button class="botao-excluir" data-id="${chamado.id}" style="background: #B5502F; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 13px;">Excluir</button>
+
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <label class="rotulo-status" for="status-${chamado.id}">Status:</label>
+                <select class="select-status" id="status-${chamado.id}" data-id="${chamado.id}">
+                    ${STATUS_DISPONIVEIS.map(
+                        (status) => `<option value="${status}" ${status.toLowerCase() === chamado.status.toLowerCase() ? "selected" : ""}>${status}</option>`
+                    ).join("")}
+                </select>
+            </div>
         </div>
     `;
 
     const seletorStatus = cartao.querySelector(".select-status");
     seletorStatus.addEventListener("change", aoMudarStatus);
+
+
+    const botaoExcluir = cartao.querySelector(".botao-excluir");
+    botaoExcluir.addEventListener("click", aoExcluirChamado);
 
     return cartao;
 }
@@ -79,6 +84,22 @@ function aoMudarStatus(evento) {
         alert("Não foi possível atualizar o status desse chamado.");
         return;
     }
+    renderizarLista();
+}
+
+function aoExcluirChamado(evento) {
+    const id = Number(evento.target.dataset.id);
+
+    const confirmar = confirm(`Tem certeza que deseja excluir o chamado #${id}?`);
+    if (!confirmar) return;
+
+    const sucesso = removerChamado(id);
+
+    if (!sucesso) {
+        alert("Não foi possível excluir o chamado.");
+        return;
+    }
+
     renderizarLista();
 }
 
